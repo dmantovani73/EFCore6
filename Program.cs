@@ -1,12 +1,5 @@
-﻿var configurations = new Dictionary<DbProvider, string>
-{
-    [SQLite] = @"Data Source=..\..\..\University.db;",
-    [SQLServer] = "Server=127.0.0.1; Database=University; User ID=sa; Password=Pa$$w0rd; Application Name=EFCore6;",
-    [PostgreSQL] = "Host=localhost; Database=University; User ID=postgres; Password=Pa$$w0rd;",
-};
-
-var provider = SQLServer;
-var connectionString = configurations[provider];
+﻿var provider = SQLServer;
+var connectionString = ConnectionStrings.Get(provider);
 
 var options = new DbContextOptionsBuilder<UniversityContext>()
     .Use(provider, connectionString)

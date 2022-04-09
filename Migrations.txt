@@ -1,0 +1,9 @@
+﻿Package Manager Console
+- Impostare configurazione "Migration"
+- Update-Database
+- Update-Database 0 (per fare undo anche della prima migrazione)
+
+Command line
+- dotnet ef migrations add Init --configuration Migration
+- dotnet ef database update --configuration Migration
+- dotnet ef database update 0 --configuration Migration

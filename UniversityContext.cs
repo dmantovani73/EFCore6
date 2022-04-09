@@ -2,6 +2,9 @@
 
 class UniversityContext : DbContext
 {
+    public UniversityContext()
+    { }
+
     public UniversityContext(DbContextOptions<UniversityContext> options)
         : base(options)
     { }
@@ -30,6 +33,13 @@ class UniversityContext : DbContext
     {
         // Abilito la scrittura del log.
         //optionsBuilder.LogTo(WriteLine);
+
+        // Serve ai tool EF (Add-Migration, ...)
+#if MIGRATION
+        optionsBuilder.UseSqlServer(ConnectionStrings.Get(SQLServer));
+#endif
+
+        //base.OnConfiguring(optionsBuilder);
     }
 
     public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
