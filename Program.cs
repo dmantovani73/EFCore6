@@ -16,6 +16,7 @@ using var context = new UniversityContext(options);
 //await RepositoryPattern(context);
 //await DbFunctionsQueries(context);
 //await SplitQueries(context);
+//await BulkOperations(context);
 
 async Task Setup(UniversityContext context)
 {
@@ -27,8 +28,8 @@ async Task Setup(UniversityContext context)
 
     context.Students.AddRange(new[]
     {
-        new Student { 
-            Name = "John", 
+        new Student {
+            Name = "John",
             Address = new StudentAddress { Address = "John address" },
             Notes = new[]
             {
@@ -41,9 +42,9 @@ async Task Setup(UniversityContext context)
                 artificialIntelligence,
             }
         },
-        new Student 
-        { 
-            Name = "Stuart", 
+        new Student
+        {
+            Name = "Stuart",
             Address = new StudentAddress { Address = "Stuart address" },
             Courses = new[]
             {
@@ -111,7 +112,7 @@ async Task NoTracking(UniversityContext context)
     var students = await context.Students
         .Include(p => p.Courses)
         .ToListAsync();
-    
+
     foreach (var s in students)
     {
         foreach (var c in s.Courses)
@@ -204,4 +205,16 @@ async Task SplitQueries(UniversityContext context)
             foreach (var c in s.Courses) WriteLine($"\t{c.Name}");
         }
     }
+}
+
+async Task BulkOperations(UniversityContext context)
+{
+    await context.Courses
+        .Where(p => p.Name.Contains("Intelligence"))
+        .ExecuteUpdateAsync(
+            c => c.SetProperty(
+                p => p.Name,
+                p => p.Name.Replace("Artificial Intelligence", "AI")
+            )
+        );
 }
