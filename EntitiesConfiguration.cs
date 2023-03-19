@@ -10,7 +10,8 @@ internal class StudentConfiguration : IEntityTypeConfiguration<Student>
 
         builder
             .Property(p => p.Name)
-            .HasMaxLength(100);
+            .HasMaxLength(100)
+            .IsRequired(true);
 
         // Relazione 1:1 dichiarata in modo esplicito.
         builder

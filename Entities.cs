@@ -2,8 +2,11 @@
 {
     public int Id { get; set; }
 
-    [Required]
+    //[Required]
+    //[StringLength(100)]
     public string Name { get; set; } = "";
+
+    public int Age { get; set; }
 
     public StudentAddress? Address { get; set; }
 

@@ -36,7 +36,7 @@ class UniversityContext : DbContext
 
         // Serve ai tool EF (Add-Migration, ...)
 #if MIGRATION
-        optionsBuilder.UseSqlServer(ConnectionStrings.Get(SQLServer));
+        optionsBuilder.UseNpgsql(ConnectionStrings.Get(PostgreSQL));
 #endif
 
         //base.OnConfiguring(optionsBuilder);

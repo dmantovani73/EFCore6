@@ -1,4 +1,4 @@
-﻿var provider = SQLServer;
+﻿var provider = PostgreSQL;
 var connectionString = ConnectionStrings.Get(provider);
 
 var options = new DbContextOptionsBuilder<UniversityContext>()
@@ -101,8 +101,8 @@ async Task Query(UniversityContext context)
 async Task NoTracking(UniversityContext context)
 {
     // No tracking per l'istanza context.
-    context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
-    //context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTrackingWithIdentityResolution;
+    //context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+    context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTrackingWithIdentityResolution;
 
     var course = await context.Courses.FirstAsync(p => p.Name == "Computer Programming");
     course.Name = "Computer Programming I";
