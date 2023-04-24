@@ -18,6 +18,7 @@ using var context = new UniversityContext(options);
 //await SplitQueries(context);
 //await BulkOperations(context);
 
+// Setup del database.
 async Task Setup(UniversityContext context)
 {
     await context.Database.EnsureDeletedAsync();
@@ -56,6 +57,7 @@ async Task Setup(UniversityContext context)
     await context.SaveChangesAsync();
 }
 
+// Esempi di query.
 async Task Query(UniversityContext context)
 {
     var student = await context.FindAsync<Student>(1);
@@ -99,6 +101,7 @@ async Task Query(UniversityContext context)
     static void PrintStudent(Student student) => WriteLine($"Name: {student?.Name}, Address: {student?.Address?.Address}");
 }
 
+// Come disabilitare il tracking delle entità.
 async Task NoTracking(UniversityContext context)
 {
     // No tracking per l'istanza context.
@@ -122,6 +125,7 @@ async Task NoTracking(UniversityContext context)
     }
 }
 
+// Implementazione della "soft delete".
 async Task SoftDelete(UniversityContext context)
 {
     var student = await context.Students.FirstAsync();
@@ -130,6 +134,7 @@ async Task SoftDelete(UniversityContext context)
     await context.SaveChangesAsync();
 }
 
+// Come mappare un'entità sui risultati di una query.
 async Task View(UniversityContext context)
 {
     /*
@@ -147,6 +152,7 @@ async Task View(UniversityContext context)
     foreach (var sc in results) WriteLine(sc);
 }
 
+// Esecuzione di SQL ad-hoc.
 async Task RawSql(UniversityContext context)
 {
     var id = 1;
@@ -169,6 +175,7 @@ async Task RepositoryPattern(UniversityContext context)
     foreach (var r in results) WriteLine($"Id: {r.Id}, Name: {r.Name}");
 }
 
+// Utilizzo di funzioni mappate sulle equivalenti SQL.
 async Task DbFunctionsQueries(UniversityContext context)
 {
     var query =
@@ -185,6 +192,7 @@ async Task DbFunctionsQueries(UniversityContext context)
     foreach (var s in await query.ToListAsync()) WriteLine(s);
 }
 
+// Split delle query.
 async Task SplitQueries(UniversityContext context)
 {
     // Cartesian explosion.
@@ -207,6 +215,7 @@ async Task SplitQueries(UniversityContext context)
     }
 }
 
+// Update / Delete bulk.
 async Task BulkOperations(UniversityContext context)
 {
     await context.Courses
